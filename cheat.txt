@@ -24,6 +24,10 @@
 //Selecionar botão de avançar para a próxima música
 //Selecionar botão de retroceder uma música
 
+
+
+
+
 //Variável para controlar se estamos em modo de play ou pause (Inicializa em pause)
 //Variável para guardar a música em que estamos da lista de músicas (Inicializa na primeira)
 
