@@ -208,3 +208,9 @@ button:active {
       -o-transform: translate(-50%, 50%) rotate(360deg);
   }
 }
+
+
+.w-50{
+  width: 50%;
+
+}

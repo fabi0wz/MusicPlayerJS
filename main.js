@@ -17,10 +17,15 @@ const playButton = document.querySelector('#btPlay');
 const pauseButton = document.querySelector('#btPause');
 const nextButton = document.querySelector('#btNext');
 const prevButton = document.querySelector('#btPrevious');
-
-
+const shuffleButton = document.querySelector('#btShuffle');
+const repeatButton = document.querySelector('#btRepeat');
 
 let isPlaying = false;
+let isRepeating = false;
+let isShuffling = false;
+let currentSong = 0;
+let previousSong = 0;
+
 
 const init = () => {
     setAudioPlayerInfo(songs[currentSong]);
@@ -34,8 +39,41 @@ const init = () => {
     nextButton.addEventListener('click', nextSong);
     prevButton.addEventListener('click', prevSong);
     audioPlayer.addEventListener('ended', nextSong);
+    shuffleButton.addEventListener('click', shuffleSong);
+    repeatButton.addEventListener('click', repeatSong);
 }
 
+const repeatSong = () =>{
+    if(isRepeating){
+        isRepeating = !isRepeating;
+        repeatButton.style.backgroundColor = null;
+    }
+    else{
+        isRepeating = !isRepeating;
+        repeatButton.style.backgroundColor = 'orange';
+    }
+}
+
+const shuffleSong = () =>{
+    if(isShuffling){
+        isShuffling = !isShuffling;
+        shuffleButton.style.backgroundColor = null;
+    }
+    else{
+        isShuffling = !isShuffling;
+        shuffleButton.style.backgroundColor = 'orange';
+    }
+}
+
+const checkShuffle = () =>{
+    previousSong = currentSong;
+    if(isShuffling){
+        do {
+            currentSong = Math.floor(Math.random() * songs.length);
+        }
+        while (currentSong === previousSong);
+        }
+}
 
 const volumeChange = (e) => {
   const volume = e.offsetX / volumeBar.offsetWidth;
@@ -74,6 +112,7 @@ const updatePlayer = () => {
     updateProgress();
     updateVolume();
 }
+
 
 // list of songs
 const songs = [
@@ -151,6 +190,7 @@ const playPause = () => {
 }
 
 const nextSong = () => {
+    checkShuffle();
     currentSong++;
     if (currentSong > songs.length - 1) {
         currentSong = 0;
@@ -161,7 +201,7 @@ const nextSong = () => {
 }
 
 const prevSong = () => {
-    currentSong--;
+    currentSong = previousSong;
     if (currentSong < 0) {
         currentSong = songs.length - 1;
     }
@@ -170,7 +210,6 @@ const prevSong = () => {
     playPause();
 }
 
-let currentSong = 0;
 
 const setAudioPlayerInfo = (song) => {
     songName.textContent = song.name;
