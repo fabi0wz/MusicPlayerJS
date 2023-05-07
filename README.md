@@ -1,2 +1,0 @@
-# musicplayer
-VanillaJS music player
