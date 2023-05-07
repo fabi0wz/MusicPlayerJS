@@ -28,18 +28,17 @@ let isShuffling = false;
 let currentSong = 0;
 let previousSong = 0;
 let prevSongFlag = false;
-let songCounter = 1;
 
 
-new Song(songCounter, 'acousticbreeze', 'bensound', 'assets/images/acousticbreeze.jpg', 'assets/audio/bensound-acousticbreeze.mp3');
-new Song(songCounter, 'anewbeginning', 'bensound', 'assets/images/anewbeginning.jpg', 'assets/audio/bensound-anewbeginning.mp3');
-new Song(songCounter, 'creativeminds', 'bensound', 'assets/images/creativeminds.jpg', 'assets/audio/bensound-creativeminds.mp3');
-new Song(songCounter, 'goinghigher', 'bensound', 'assets/images/goinghigher.jpg', 'assets/audio/bensound-goinghigher.mp3');
-new Song(songCounter, 'happyrock', 'bensound', 'assets/images/happyrock.jpg', 'assets/audio/bensound-happyrock.mp3');
-new Song(songCounter, 'jazzyfrenchy', 'bensound', 'assets/images/jazzyfrenchy.jpg', 'assets/audio/bensound-jazzyfrenchy.mp3');
-new Song(songCounter, 'littleidea', 'bensound', 'assets/images/littleidea.jpg', 'assets/audio/bensound-littleidea.mp3');
-new Song(songCounter, 'memories', 'bensound', 'assets/images/memories.jpg', 'assets/audio/bensound-memories.mp3');
-new Song(songCounter, 'ukulele', 'bensound', 'assets/images/ukulele.jpg', 'assets/audio/bensound-ukulele.mp3');
+new Song('acousticbreeze', 'bensound', 'assets/images/acousticbreeze.jpg', 'assets/audio/bensound-acousticbreeze.mp3');
+new Song('anewbeginning', 'bensound', 'assets/images/anewbeginning.jpg', 'assets/audio/bensound-anewbeginning.mp3');
+new Song('creativeminds', 'bensound', 'assets/images/creativeminds.jpg', 'assets/audio/bensound-creativeminds.mp3');
+new Song('goinghigher', 'bensound', 'assets/images/goinghigher.jpg', 'assets/audio/bensound-goinghigher.mp3');
+new Song('happyrock', 'bensound', 'assets/images/happyrock.jpg', 'assets/audio/bensound-happyrock.mp3');
+new Song('jazzyfrenchy', 'bensound', 'assets/images/jazzyfrenchy.jpg', 'assets/audio/bensound-jazzyfrenchy.mp3');
+new Song('littleidea', 'bensound', 'assets/images/littleidea.jpg', 'assets/audio/bensound-littleidea.mp3');
+new Song('memories', 'bensound', 'assets/images/memories.jpg', 'assets/audio/bensound-memories.mp3');
+new Song('ukulele', 'bensound', 'assets/images/ukulele.jpg', 'assets/audio/bensound-ukulele.mp3');
 
 //initialize the player and all event listeners
 const init = () => {
@@ -83,10 +82,10 @@ const checkRepeating = () =>{
 const nextSong = () => {
     checkShuffle();
     currentSong++;
-    if (currentSong > songs.length - 1) {
+    if (currentSong > Song.songList.length - 1) {
         currentSong = 0;
     }
-    setAudioPlayerInfo(songs[currentSong]);
+    setAudioPlayerInfo(Song.songList[currentSong]);
     playPause();
     playPause();
 }
@@ -96,9 +95,9 @@ const prevSong = () => {
     if(!prevSongFlag){
     currentSong--;
         if (currentSong < 0) {
-            currentSong = songs.length - 1;
+            currentSong = Song.songList.length - 1;
         }
-    setAudioPlayerInfo(songs[currentSong]);
+    setAudioPlayerInfo(Song.songList[currentSong]);
     playPause();
     playPause();
     }
@@ -106,9 +105,9 @@ const prevSong = () => {
         currentSong = previousSong;
         currentSong--;
         if (currentSong < 0) {
-            currentSong = songs.length - 1;
+            currentSong = Song.songList.length - 1;
         }
-        setAudioPlayerInfo(songs[currentSong]);
+        setAudioPlayerInfo(Song.songList[currentSong]);
         playPause();
         playPause();
         prevSongFlag = false;
@@ -132,7 +131,7 @@ const checkShuffle = () =>{
     if(isShuffling){
         prevSongFlag = true;
         do {
-            currentSong = Math.floor(Math.random() * songs.length);
+            currentSong = Math.floor(Math.random() * Song.songList.length);
         }
         while (currentSong === previousSong);
         }
