@@ -23,11 +23,8 @@ const repeatButton = document.querySelector('#btRepeat');
 
 // music variables
 let isPlaying = false;
-let isRepeating = false;
-let isShuffling = false;
 let currentSong = 0;
-let previousSong = 0;
-let prevSongFlag = false;
+
 
 //initialize the player and all event listeners
 const init = () => {
@@ -42,23 +39,10 @@ const init = () => {
     nextButton.addEventListener('click', nextSong);
     prevButton.addEventListener('click', prevSong);
     audioPlayer.addEventListener('ended', nextSong);
-    shuffleButton.addEventListener('click', shuffleSong);
-    repeatButton.addEventListener('click', repeatSong);
 }
 
-const repeatSong = () =>{
-    if(isRepeating){
-        isRepeating = !isRepeating;
-        repeatButton.style.backgroundColor = null;
-    }
-    else{
-        isRepeating = !isRepeating;
-        repeatButton.style.backgroundColor = 'orange';
-    }
-}
 
 const nextSong = () => {
-    checkShuffle();
     currentSong++;
     if (currentSong > songs.length - 1) {
         currentSong = 0;
@@ -69,8 +53,6 @@ const nextSong = () => {
 }
 
 const prevSong = () => {
-
-    if(!prevSongFlag){
     currentSong--;
         if (currentSong < 0) {
             currentSong = songs.length - 1;
@@ -78,41 +60,6 @@ const prevSong = () => {
     setAudioPlayerInfo(songs[currentSong]);
     playPause();
     playPause();
-    }
-    else{
-        currentSong = previousSong;
-        currentSong--;
-        if (currentSong < 0) {
-            currentSong = songs.length - 1;
-        }
-        setAudioPlayerInfo(songs[currentSong]);
-        playPause();
-        playPause();
-        prevSongFlag = false;
-    }
-}
-
-const shuffleSong = () =>{
-
-    if(isShuffling){
-        isShuffling = !isShuffling;
-        shuffleButton.style.backgroundColor = null;
-    }
-    else{
-        isShuffling = !isShuffling;
-        shuffleButton.style.backgroundColor = 'orange';
-    }
-}
-
-const checkShuffle = () =>{
-    previousSong = currentSong + 1;
-    if(isShuffling){
-        prevSongFlag = true;
-        do {
-            currentSong = Math.floor(Math.random() * songs.length);
-        }
-        while (currentSong === previousSong);
-        }
 }
 
 const volumeChange = (e) => {
@@ -157,64 +104,55 @@ const updatePlayer = () => {
 // list of songs
 const songs = [
     {
-        // name: 'acousticbreeze',
-        name: 'song 1',
+        name: 'acousticbreeze',
         artist: 'bensound',
         cover: 'assets/images/acousticbreeze.jpg',
         src: 'assets/audio/bensound-acousticbreeze.mp3'
     },
     {
-        // name: 'anewbeginning',
-        name: 'song 2',
+        name: 'anewbeginning',
         artist: 'bensound',
         cover: 'assets/images/anewbeginning.jpg',
         src: 'assets/audio/bensound-anewbeginning.mp3'
     },
     {
-        // name: 'creativeminds',
-        name: 'song 3',
+        name: 'creativeminds',
         artist: 'bensound',
         cover: 'assets/images/creativeminds.jpg',
         src: 'assets/audio/bensound-creativeminds.mp3'
     },
     {
-        // name: 'goinghigher',
-        name: 'song 4',
+        name: 'goinghigher',
         artist: 'bensound',
         cover: 'assets/images/goinghigher.jpg',
         src: 'assets/audio/bensound-goinghigher.mp3'
     },
     {
-        // name: 'happyrock',
-        name: 'song 5',
+        name: 'happyrock',
         artist: 'bensound',
         cover: 'assets/images/happyrock.jpg',
         src: 'assets/audio/bensound-happyrock.mp3'
     },
     {
-        // name: 'jazzyfrenchy',
-        name: 'song 6',
+        name: 'jazzyfrenchy',
         artist: 'bensound',
         cover: 'assets/images/jazzyfrenchy.jpg',
         src: 'assets/audio/bensound-jazzyfrenchy.mp3'
     },
     {
-        // name: 'littleidea',
-        name: 'song 7',
+        name: 'littleidea',
         artist: 'bensound',
         cover: 'assets/images/littleidea.jpg',
         src: 'assets/audio/bensound-littleidea.mp3'
     },
     {
-        // name: 'memories',
-        name: 'song 8',
+        name: 'memories',
         artist: 'bensound',
         cover: 'assets/images/memories.jpg',
         src: 'assets/audio/bensound-memories.mp3'
     },
     {
-        // name: 'ukulele',
-        name: 'song 9',
+        name: 'ukulele',
         artist: 'bensound',
         cover: 'assets/images/ukulele.jpg',
         src: 'assets/audio/bensound-ukulele.mp3'
