@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a56a43f-5be3-4967-9dc4-d3a3a7ee2a13" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-    </list>
+    <list default="true" id="5a56a43f-5be3-4967-9dc4-d3a3a7ee2a13" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +25,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "newfeatures",
     "last_opened_file_path": "C:/Users/Fabi0/Desktop/MusicPlayerJS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -48,6 +46,7 @@
       <updated>1683217635591</updated>
       <workItem from="1683217637346" duration="514000" />
       <workItem from="1683218177391" duration="165000" />
+      <workItem from="1683461579536" duration="5242000" />
     </task>
     <servers />
   </component>
