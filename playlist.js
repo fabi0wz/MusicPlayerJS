@@ -1,6 +1,0 @@
-class Playlist{
-    #playlist = [];
-
-    constructor() {
-    }
-}

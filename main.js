@@ -13,6 +13,7 @@ const volumeBarFill = volumeBar.querySelector('#soundVolumeLevel');
 const musicProgress = document.querySelector('#trackProgressContainer');
 const musicProgressFill = musicProgress.querySelector('#trackProgressBar');
 
+//music buttons
 const playButton = document.querySelector('#btPlay');
 const pauseButton = document.querySelector('#btPause');
 const nextButton = document.querySelector('#btNext');
@@ -20,13 +21,15 @@ const prevButton = document.querySelector('#btPrevious');
 const shuffleButton = document.querySelector('#btShuffle');
 const repeatButton = document.querySelector('#btRepeat');
 
+// music variables
 let isPlaying = false;
 let isRepeating = false;
 let isShuffling = false;
 let currentSong = 0;
 let previousSong = 0;
+let prevSongFlag = false;
 
-
+//initialize the player and all event listeners
 const init = () => {
     setAudioPlayerInfo(songs[currentSong]);
     audioPlayer.addEventListener('timeupdate', updatePlayer);
@@ -54,7 +57,43 @@ const repeatSong = () =>{
     }
 }
 
+const nextSong = () => {
+    checkShuffle();
+    currentSong++;
+    if (currentSong > songs.length - 1) {
+        currentSong = 0;
+    }
+    setAudioPlayerInfo(songs[currentSong]);
+    playPause();
+    playPause();
+}
+
+const prevSong = () => {
+
+    if(!prevSongFlag){
+    currentSong--;
+        if (currentSong < 0) {
+            currentSong = songs.length - 1;
+        }
+    setAudioPlayerInfo(songs[currentSong]);
+    playPause();
+    playPause();
+    }
+    else{
+        currentSong = previousSong;
+        currentSong--;
+        if (currentSong < 0) {
+            currentSong = songs.length - 1;
+        }
+        setAudioPlayerInfo(songs[currentSong]);
+        playPause();
+        playPause();
+        prevSongFlag = false;
+    }
+}
+
 const shuffleSong = () =>{
+
     if(isShuffling){
         isShuffling = !isShuffling;
         shuffleButton.style.backgroundColor = null;
@@ -66,8 +105,9 @@ const shuffleSong = () =>{
 }
 
 const checkShuffle = () =>{
-    previousSong = currentSong;
+    previousSong = currentSong + 1;
     if(isShuffling){
+        prevSongFlag = true;
         do {
             currentSong = Math.floor(Math.random() * songs.length);
         }
@@ -117,55 +157,64 @@ const updatePlayer = () => {
 // list of songs
 const songs = [
     {
-        name: 'acousticbreeze',
+        // name: 'acousticbreeze',
+        name: 'song 1',
         artist: 'bensound',
         cover: 'assets/images/acousticbreeze.jpg',
         src: 'assets/audio/bensound-acousticbreeze.mp3'
     },
     {
-        name: 'anewbeginning',
+        // name: 'anewbeginning',
+        name: 'song 2',
         artist: 'bensound',
         cover: 'assets/images/anewbeginning.jpg',
         src: 'assets/audio/bensound-anewbeginning.mp3'
     },
     {
-        name: 'creativeminds',
+        // name: 'creativeminds',
+        name: 'song 3',
         artist: 'bensound',
         cover: 'assets/images/creativeminds.jpg',
         src: 'assets/audio/bensound-creativeminds.mp3'
     },
     {
-        name: 'goinghigher',
+        // name: 'goinghigher',
+        name: 'song 4',
         artist: 'bensound',
         cover: 'assets/images/goinghigher.jpg',
         src: 'assets/audio/bensound-goinghigher.mp3'
     },
     {
-        name: 'happyrock',
+        // name: 'happyrock',
+        name: 'song 5',
         artist: 'bensound',
         cover: 'assets/images/happyrock.jpg',
         src: 'assets/audio/bensound-happyrock.mp3'
     },
     {
-        name: 'jazzyfrenchy',
+        // name: 'jazzyfrenchy',
+        name: 'song 6',
         artist: 'bensound',
         cover: 'assets/images/jazzyfrenchy.jpg',
         src: 'assets/audio/bensound-jazzyfrenchy.mp3'
     },
     {
-        name: 'littleidea',
+        // name: 'littleidea',
+        name: 'song 7',
         artist: 'bensound',
         cover: 'assets/images/littleidea.jpg',
         src: 'assets/audio/bensound-littleidea.mp3'
     },
     {
-        name: 'memories',
+        // name: 'memories',
+        name: 'song 8',
         artist: 'bensound',
         cover: 'assets/images/memories.jpg',
         src: 'assets/audio/bensound-memories.mp3'
     },
     {
-        name: 'ukulele',
+        // name: 'ukulele',
+        name: 'song 9',
         artist: 'bensound',
         cover: 'assets/images/ukulele.jpg',
         src: 'assets/audio/bensound-ukulele.mp3'
@@ -188,29 +237,6 @@ const playPause = () => {
         playButton.style.display = 'none';
     }
 }
-
-const nextSong = () => {
-    checkShuffle();
-    currentSong++;
-    if (currentSong > songs.length - 1) {
-        currentSong = 0;
-    }
-    setAudioPlayerInfo(songs[currentSong]);
-    playPause();
-    playPause();
-}
-
-const prevSong = () => {
-    currentSong = previousSong;
-    if (currentSong < 0) {
-        currentSong = songs.length - 1;
-    }
-    setAudioPlayerInfo(songs[currentSong]);
-    playPause();
-    playPause();
-}
-
-
 const setAudioPlayerInfo = (song) => {
     songName.textContent = song.name;
     artist.textContent = song.artist;
@@ -219,6 +245,6 @@ const setAudioPlayerInfo = (song) => {
     volumeBarFill.style.width = `${audioPlayer.volume * 100}%`;
 }
 
-
+currentPlaylist = 'default';
 init();
 
