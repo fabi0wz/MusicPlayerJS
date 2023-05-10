@@ -9,7 +9,6 @@ class Song {
         this.#artist = artist;
         this.#cover = cover;
         this.#src = src;
-r
         defaultPlaylist.addSong(this);
     }
 

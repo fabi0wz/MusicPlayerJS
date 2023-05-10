@@ -27,6 +27,7 @@ const init = () => {
     audioPlayer.addEventListener('timeupdate', updatePlayer);
     audioPlayer.addEventListener('ended', checkRepeating);
     volumeBar.addEventListener('click', volumeChange);
+    volumeBar.addEventListener('wheel', volumeChangewheel);
     musicProgress.addEventListener('click', musicProgressChange);
     muteButton.addEventListener('click', mute);
     unmuteButton.addEventListener('click', mute);
@@ -38,7 +39,6 @@ const init = () => {
     repeatButton.addEventListener('click', repeatSong);
 }
 
-
 const shuffleBtnBg = (s) => {
     s ? shuffleButton.style.backgroundColor = 'orange' : shuffleButton.style.backgroundColor = null;
 }
@@ -48,7 +48,7 @@ const repeatBtnBg = (s) => {
 const updateProgress = () => {
     musicProgressFill.style.width = `${(audioPlayer.currentTime / audioPlayer.duration) * 100}%`;
 }
-const updateVolume = () => {
+const updateVolumeFill = () => {
     volumeBarFill.style.width = `${audioPlayer.volume * 100}%`;
 }
 

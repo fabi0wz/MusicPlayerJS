@@ -85,8 +85,28 @@ const mute = () =>{
 
 const updatePlayer = () => {
     updateProgress();
-    updateVolume();
+    updateVolumeFill();
 }
+
+
+const volumeChangewheel = (event) => {
+    if (event.deltaY < 0) { // mousewheel up
+        if(audioPlayer.volume >= 1){
+            audioPlayer.volume = 1;
+            return;
+        }
+        const up = audioPlayer.volume + 0.1;
+        audioPlayer.volume = up.toFixed(1);
+    } else if (event.deltaY > 0) { // mousewheel down
+        if(audioPlayer.volume <= 0){
+            audioPlayer.volume = 0;
+            return;
+        }
+        const res = audioPlayer.volume - 0.1;
+        audioPlayer.volume = res.toFixed(1);
+    }
+    updateVolumeFill();
+};
 
 //Dados
 
