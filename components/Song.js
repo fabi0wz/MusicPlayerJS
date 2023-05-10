@@ -17,8 +17,7 @@ class Song {
         Song.songList.push(this);
     }
 
-    get name() {
-        return this.#name;
+    get name() {return this.#name;
     }
     get artist() {
         return this.#artist;
@@ -30,5 +29,8 @@ class Song {
         return this.#src;
     }
 }
+
+
+
 
 
