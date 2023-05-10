@@ -1,10 +1,12 @@
 class Song {
+    #id = 0;
     #name;
     #artist;
     #cover;
     #src;
     static songList = [];
     constructor(name, artist, cover, src) {
+        this.#id += #id;
         this.#name = name;
         this.#artist = artist;
         this.#cover = cover;
