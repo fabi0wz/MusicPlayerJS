@@ -21,8 +21,10 @@ const pause = () => {
     updatePausePlay();
 }
 
+let shuffleFlag = false;
 const nextSong = () => {
     if(isShuffling){
+        shuffleFlag = true;
         defaultPlaylist.setPreviousSong = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong);
         do{
         defaultPlaylist.setCurrentSongIndex = Math.floor(Math.random() * defaultPlaylist.getPlaylist.length);
@@ -31,27 +33,32 @@ const nextSong = () => {
     }
     else {
         defaultPlaylist.setCurrentSongIndex = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) + 1;
-        if (defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) === defaultPlaylist.getPlaylist.length -1) {
+        if (defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) === defaultPlaylist.getPlaylist.length - 1) {
             defaultPlaylist.setCurrentSongIndex = 0;
         }
     }
     setAudioPlayerInfo(defaultPlaylist.getCurrentSong);
 }
 
+
 const prevSong = () => { // on button press
-    if(isShuffling){ // checks if shuffle is on
-        setAudioPlayerInfo(defaultPlaylist.getPreviousSong); // sets audio player info to previous song
+    if(shuffleFlag){ // checks if shuffle is on
+            defaultPlaylist.setCurrentSongIndex = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getPreviousSong); // currentsong = previous song
+            shuffleFlag = false;
     }
     else{ // shuffle is off
-        defaultPlaylist.setCurrentSongIndex = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) - 1; // currentsong--
-        if (defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) < 0) { // checks if it goes below 0
-            defaultPlaylist.setCurrentSongIndex = defaultPlaylist.getPlaylist.length - 1; // goes to end of playlist array
+        try {
+            defaultPlaylist.setCurrentSongIndex = (defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong)) - 1; // currentsong--
+        } catch (Error) {
+            // If an error is thrown, log it and set the current song to 0
+            defaultPlaylist.setCurrentSongIndex = (defaultPlaylist.getPlaylist.length) - 1;
         }
-        setAudioPlayerInfo(defaultPlaylist.getCurrentSong); // changes audio player info
     }
+    setAudioPlayerInfo(defaultPlaylist.getCurrentSong); // changes audio player info
 }
 
 const shuffleSong = () => { // on button press
+    shuffleFlag = !shuffleFlag; // changes shuffle status
     isShuffling = !isShuffling; // changes shuffle status
     shuffleBtnBg(isShuffling); // changes bg fill
 }

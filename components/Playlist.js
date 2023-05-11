@@ -25,11 +25,11 @@ class Playlist{
         return this.#playlist[this.#currentSong];
     }
 
-    set setCurrentSongIndex(index) {
-        if (index < 0 || index >= this.#playlist.length) {
-            throw new Error('Invalid song index');
+    set setCurrentSongIndex(songindex) {
+        if (songindex < 0 || songindex >= this.#playlist.length) {
+            throw new Error('Invalid song songindex');
         }
-        this.#currentSong = index;
+        this.#currentSong = songindex;
     }
 
     get getPreviousSong() {
@@ -37,6 +37,9 @@ class Playlist{
     }
 
     set setPreviousSong(songindex) {
+        if (songindex < 0 || songindex >= this.#playlist.length) {
+            throw new Error('Invalid song index');
+        }
         this.#previousSong = songindex;
     }
 }

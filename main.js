@@ -71,7 +71,25 @@ const setAudioPlayerInfo = (song) => {
     songCover.style.backgroundImage = `url(${song.getcover})`;
     audioPlayer.src = song.getsrc;
     volumeBarFill.style.width = `${audioPlayer.volume * 100}%`;
+    updateTable(song);
     playCheck();
+}
+
+const updateTable = (song) => {
+
+    const childElements = document.querySelectorAll('tr');
+    childElements.forEach((child) => {
+        child.classList.remove('tableActive');
+    });
+    //remover o active da musica anterior
+
+    const tr = document.querySelector(`.${song.getname}`);
+    tr.classList.add('tableActive');
+
+    const tableHeight = document.querySelector('#musicTable').offsetHeight;
+    const rowPosition = document.querySelector(`.${(defaultPlaylist.getCurrentSong).getname}`).offsetTop;
+    const scrollPosition = rowPosition - (tableHeight / 2);
+    document.querySelector('#musicTable').scrollTop = scrollPosition;
 }
 
 const updatePausePlay = () => {
@@ -86,5 +104,13 @@ const updatePausePlay = () => {
         playButton.style.display = 'block';
     }
 }
+
+
+
+
+
+
+
+
 
 init();
