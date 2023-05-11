@@ -32,8 +32,11 @@ const nextSong = () => {
         while(defaultPlaylist.getCurrentSong === defaultPlaylist.getPreviousSong);
     }
     else {
-        defaultPlaylist.setCurrentSongIndex = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) + 1;
-        if (defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) === defaultPlaylist.getPlaylist.length - 1) {
+
+        try {
+            defaultPlaylist.setCurrentSongIndex = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) + 1;
+        }
+        catch (Error) {
             defaultPlaylist.setCurrentSongIndex = 0;
         }
     }
