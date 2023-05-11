@@ -6,7 +6,7 @@ class Song {
     #src;
     static songList = [];
     constructor(name, artist, cover, src) {
-        this.#id += #id;
+        this.#id = (defaultPlaylist.getPlaylist).length;
         this.#name = name;
         this.#artist = artist;
         this.#cover = cover;
@@ -25,6 +25,10 @@ class Song {
     }
     get getsrc() {
         return this.#src;
+    }
+
+    get getId(){
+        return this.#id;
     }
 }
 

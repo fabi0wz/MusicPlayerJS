@@ -21,6 +21,8 @@ const prevButton = document.querySelector('#btPrevious');
 const shuffleButton = document.querySelector('#btShuffle');
 const repeatButton = document.querySelector('#btRepeat');
 
+const tablePlayButtons = document.querySelectorAll('.tableplayButton');
+
 //initialize the player and all event listeners
 const init = () => {
     setAudioPlayerInfo(defaultPlaylist.getCurrentSong);
@@ -37,6 +39,11 @@ const init = () => {
     prevButton.addEventListener('click', prevSong);
     shuffleButton.addEventListener('click', shuffleSong);
     repeatButton.addEventListener('click', repeatSong);
+    tablePlayButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            tablePlayButton(index);
+        });
+    });
 }
 
 const shuffleBtnBg = (s) => {

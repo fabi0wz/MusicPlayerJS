@@ -4,13 +4,14 @@ let isShuffling = false;
 
 const playPause = () => {
     isPlaying = !isPlaying;
-    isPlaying ? play() : pause();
+    isPlaying ? playStart() : pause();
 
 }
 const playCheck = () => {
-    isPlaying ? play() : pause();
+    isPlaying ? playStart() : pause();
 }
-const play = () => {
+const playStart = () => {
+    isPlaying = true;
     audioPlayer.play();
     updatePausePlay();
 }
@@ -107,6 +108,13 @@ const volumeChangewheel = (event) => {
     }
     updateVolumeFill();
 };
+
+const tablePlayButton = (index) => {
+    defaultPlaylist.setCurrentSongIndex = index;
+    setAudioPlayerInfo(defaultPlaylist.getCurrentSong);
+    playStart();
+}
+
 
 //Dados
 

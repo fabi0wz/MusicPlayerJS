@@ -212,5 +212,21 @@ button:active {
 
 .w-50{
   width: 50%;
+}
 
+table{
+  height:200px;
+  display:block;
+  width: 100%;
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
+
+table::-webkit-scrollbar {
+  display: none;
+}
+
+.tableplayButton:hover{
+  cursor: pointer;
+  color: green;
 }
