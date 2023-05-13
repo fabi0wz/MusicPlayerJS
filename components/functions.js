@@ -14,11 +14,13 @@ const playStart = () => {
     isPlaying = true;
     audioPlayer.play();
     updatePausePlay();
+    playTable();
 }
 
 const pause = () => {
     audioPlayer.pause();
     updatePausePlay();
+    pauseTable();
 }
 
 let shuffleFlag = false;
@@ -121,8 +123,13 @@ const volumeChangewheel = (event) => {
 
 const tablePlayButton = (index) => {
     defaultPlaylist.setCurrentSongIndex = index;
-    setAudioPlayerInfo(defaultPlaylist.getCurrentSong);
     playStart();
+    setAudioPlayerInfo(defaultPlaylist.getCurrentSong);
+}
+
+const tablePauseButton = () => {
+    playPause();
+    pauseTable();
 }
 
 

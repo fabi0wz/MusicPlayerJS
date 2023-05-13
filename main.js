@@ -21,7 +21,8 @@ const prevButton = document.querySelector('#btPrevious');
 const shuffleButton = document.querySelector('#btShuffle');
 const repeatButton = document.querySelector('#btRepeat');
 
-const tablePlayButtons = document.querySelectorAll('.tableplayButton');
+const tablePlayButtons = document.querySelectorAll('.tablePlayButton');
+const tablePauseButtons = document.querySelectorAll('.tablePauseButton');
 
 //initialize the player and all event listeners
 const init = () => {
@@ -44,6 +45,12 @@ const init = () => {
             tablePlayButton(index);
         });
     });
+   tablePauseButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            tablePauseButton(index);
+        });
+    });
+    // descomentar quando for fazer o botao de pause funcionar
 }
 
 const shuffleBtnBg = (s) => {
@@ -71,11 +78,11 @@ const setAudioPlayerInfo = (song) => {
     songCover.style.backgroundImage = `url(${song.getcover})`;
     audioPlayer.src = song.getsrc;
     volumeBarFill.style.width = `${audioPlayer.volume * 100}%`;
-    updateTable(song);
+    renderTable(song);
     playCheck();
 }
 
-const updateTable = (song) => {
+const renderTable = (song) => {
 
     const childElements = document.querySelectorAll('tr');
     childElements.forEach((child) => {
@@ -83,13 +90,45 @@ const updateTable = (song) => {
     });
     //remover o active da musica anterior
 
-    const tr = document.querySelector(`.${song.getname}`);
-    tr.classList.add('tableActive');
+    const tableActive = document.querySelector(`.${song.getname}`);
+    tableActive.classList.add('tableActive');
 
     const tableHeight = document.querySelector('#musicTable').offsetHeight;
     const rowPosition = document.querySelector(`.${(defaultPlaylist.getCurrentSong).getname}`).offsetTop;
     const scrollPosition = rowPosition - (tableHeight / 2);
     document.querySelector('#musicTable').scrollTop = scrollPosition;
+
+    isPlaying ? playTable(song) : pauseTable(song);
+}
+
+const pauseTable = (song) => {
+    const tablePauseButtonsSelect = document.querySelectorAll('.tablePauseButton');
+    tablePauseButtonsSelect.forEach((button) => {
+        button.classList.add('hidden');
+    });
+
+    const tablePlayButtonsSelect = document.querySelectorAll('.tablePlayButton');
+    tablePlayButtonsSelect.forEach((button) => {
+        button.classList.remove('hidden');
+    });
+}
+
+const playTable = () => {
+
+    const tablePauseButtonsSelect = document.querySelectorAll('.tablePauseButton');
+    tablePauseButtonsSelect.forEach((button) => {
+        button.classList.add('hidden');
+    });
+
+    const tablePlayButtonsSelect = document.querySelectorAll('.tablePlayButton');
+    tablePlayButtonsSelect.forEach((button) => {
+        button.classList.remove('hidden');
+    });
+
+    const tablePauseButtonSelect = document.querySelector(`.${defaultPlaylist.getCurrentSong.getname} .tablePauseButton`);
+    tablePauseButtonSelect.classList.remove('hidden'); // select the pause button and make it visible
+    const tablePlayButtonSelect = document.querySelector(`.${defaultPlaylist.getCurrentSong.getname} .tablePlayButton`);
+    tablePlayButtonSelect.classList.add('hidden'); // select the play button and make it hidden
 }
 
 const updatePausePlay = () => {
