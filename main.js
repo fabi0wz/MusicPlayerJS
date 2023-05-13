@@ -21,167 +21,135 @@ const prevButton = document.querySelector('#btPrevious');
 const shuffleButton = document.querySelector('#btShuffle');
 const repeatButton = document.querySelector('#btRepeat');
 
-// music variables
-let isPlaying = false;
-let currentSong = 0;
-
+const tablePlayButtons = document.querySelectorAll('.tablePlayButton');
+const tablePauseButtons = document.querySelectorAll('.tablePauseButton');
 
 //initialize the player and all event listeners
 const init = () => {
-    setAudioPlayerInfo(songs[currentSong]);
+    setAudioPlayerInfo(defaultPlaylist.getCurrentSong);
     audioPlayer.addEventListener('timeupdate', updatePlayer);
+    audioPlayer.addEventListener('ended', checkRepeating);
     volumeBar.addEventListener('click', volumeChange);
+    volumeBar.addEventListener('wheel', volumeChangewheel);
     musicProgress.addEventListener('click', musicProgressChange);
     muteButton.addEventListener('click', mute);
-    unmuteButton.addEventListener('click', unmute);
+    unmuteButton.addEventListener('click', mute);
     playButton.addEventListener('click', playPause);
     pauseButton.addEventListener('click', playPause);
     nextButton.addEventListener('click', nextSong);
     prevButton.addEventListener('click', prevSong);
-    audioPlayer.addEventListener('ended', nextSong);
+    shuffleButton.addEventListener('click', shuffleSong);
+    repeatButton.addEventListener('click', repeatSong);
+    tablePlayButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            tablePlayButton(index);
+        });
+    });
+   tablePauseButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            tablePauseButton(index);
+        });
+    });
+    // descomentar quando for fazer o botao de pause funcionar
 }
 
-
-const nextSong = () => {
-    currentSong++;
-    if (currentSong > songs.length - 1) {
-        currentSong = 0;
-    }
-    setAudioPlayerInfo(songs[currentSong]);
-    playPause();
-    playPause();
+const shuffleBtnBg = (s) => {
+    s ? shuffleButton.style.backgroundColor = 'orange' : shuffleButton.style.backgroundColor = null;
 }
-
-const prevSong = () => {
-    currentSong--;
-        if (currentSong < 0) {
-            currentSong = songs.length - 1;
-        }
-    setAudioPlayerInfo(songs[currentSong]);
-    playPause();
-    playPause();
+const repeatBtnBg = (s) => {
+    s ? repeatButton.style.backgroundColor = 'orange' : repeatButton.style.backgroundColor = null;
 }
-
-const volumeChange = (e) => {
-  const volume = e.offsetX / volumeBar.offsetWidth;
-  audioPlayer.volume = volume;
-  volumeBarFill.style.width = `${volume * 100}%`;
-}
-
-const musicProgressChange = (e) => {
-    const progress = e.offsetX / musicProgress.offsetWidth;
-    audioPlayer.currentTime = progress * audioPlayer.duration;
-    musicProgressFill.style.width = `${progress * 100}%`;
-}
-
-
-const mute = () => {
-    audioPlayer.muted = true;
-    muteButton.style.display = 'none';
-    unmuteButton.style.display = 'block';
-}
-
-const unmute = () => {
-    audioPlayer.muted = false;
-    muteButton.style.display = 'block';
-    unmuteButton.style.display = 'none';
-}
-
 const updateProgress = () => {
     musicProgressFill.style.width = `${(audioPlayer.currentTime / audioPlayer.duration) * 100}%`;
 }
-
-const updateVolume = () => {
+const updateVolumeFill = () => {
     volumeBarFill.style.width = `${audioPlayer.volume * 100}%`;
 }
 
-const updatePlayer = () => {
-    updateProgress();
-    updateVolume();
+const muteBtnUpdate = () => {
+    audioPlayer.muted ? muteButton.style.display = 'none' : muteButton.style.display = 'block';
+    audioPlayer.muted ? unmuteButton.style.display = 'block' : unmuteButton.style.display = 'none';
 }
 
 
-// list of songs
-const songs = [
-    {
-        name: 'acousticbreeze',
-        artist: 'bensound',
-        cover: 'assets/images/acousticbreeze.jpg',
-        src: 'assets/audio/bensound-acousticbreeze.mp3'
-    },
-    {
-        name: 'anewbeginning',
-        artist: 'bensound',
-        cover: 'assets/images/anewbeginning.jpg',
-        src: 'assets/audio/bensound-anewbeginning.mp3'
-    },
-    {
-        name: 'creativeminds',
-        artist: 'bensound',
-        cover: 'assets/images/creativeminds.jpg',
-        src: 'assets/audio/bensound-creativeminds.mp3'
-    },
-    {
-        name: 'goinghigher',
-        artist: 'bensound',
-        cover: 'assets/images/goinghigher.jpg',
-        src: 'assets/audio/bensound-goinghigher.mp3'
-    },
-    {
-        name: 'happyrock',
-        artist: 'bensound',
-        cover: 'assets/images/happyrock.jpg',
-        src: 'assets/audio/bensound-happyrock.mp3'
-    },
-    {
-        name: 'jazzyfrenchy',
-        artist: 'bensound',
-        cover: 'assets/images/jazzyfrenchy.jpg',
-        src: 'assets/audio/bensound-jazzyfrenchy.mp3'
-    },
-    {
-        name: 'littleidea',
-        artist: 'bensound',
-        cover: 'assets/images/littleidea.jpg',
-        src: 'assets/audio/bensound-littleidea.mp3'
-    },
-    {
-        name: 'memories',
-        artist: 'bensound',
-        cover: 'assets/images/memories.jpg',
-        src: 'assets/audio/bensound-memories.mp3'
-    },
-    {
-        name: 'ukulele',
-        artist: 'bensound',
-        cover: 'assets/images/ukulele.jpg',
-        src: 'assets/audio/bensound-ukulele.mp3'
-    }
-];
+const setAudioPlayerInfo = (song) => {
+    songName.textContent = song.getname;
+    artist.textContent = song.getartist;
+    songCover.style.backgroundImage = `url(${song.getcover})`;
+    audioPlayer.src = song.getsrc;
+    volumeBarFill.style.width = `${audioPlayer.volume * 100}%`;
+    renderTable(song);
+    playCheck();
+}
 
+const renderTable = (song) => {
 
-const playPause = () => {
-    if (isPlaying) {
-        songCover.classList.add('paused');
-        audioPlayer.pause();
-        isPlaying = false;
-        pauseButton.style.display = 'none';
-        playButton.style.display = 'block';
-    } else {
+    const childElements = document.querySelectorAll('tr');
+    childElements.forEach((child) => {
+        child.classList.remove('tableActive');
+    });
+    //remover o active da musica anterior
+
+    const tableActive = document.querySelector(`.${song.getname}`);
+    tableActive.classList.add('tableActive');
+
+    const tableHeight = document.querySelector('#musicTable').offsetHeight;
+    const rowPosition = document.querySelector(`.${(defaultPlaylist.getCurrentSong).getname}`).offsetTop;
+    const scrollPosition = rowPosition - (tableHeight / 2);
+    document.querySelector('#musicTable').scrollTop = scrollPosition;
+
+    isPlaying ? playTable(song) : pauseTable(song);
+}
+
+const pauseTable = (song) => {
+    const tablePauseButtonsSelect = document.querySelectorAll('.tablePauseButton');
+    tablePauseButtonsSelect.forEach((button) => {
+        button.classList.add('hidden');
+    });
+
+    const tablePlayButtonsSelect = document.querySelectorAll('.tablePlayButton');
+    tablePlayButtonsSelect.forEach((button) => {
+        button.classList.remove('hidden');
+    });
+}
+
+const playTable = () => {
+
+    const tablePauseButtonsSelect = document.querySelectorAll('.tablePauseButton');
+    tablePauseButtonsSelect.forEach((button) => {
+        button.classList.add('hidden');
+    });
+
+    const tablePlayButtonsSelect = document.querySelectorAll('.tablePlayButton');
+    tablePlayButtonsSelect.forEach((button) => {
+        button.classList.remove('hidden');
+    });
+
+    const tablePauseButtonSelect = document.querySelector(`.${defaultPlaylist.getCurrentSong.getname} .tablePauseButton`);
+    tablePauseButtonSelect.classList.remove('hidden'); // select the pause button and make it visible
+    const tablePlayButtonSelect = document.querySelector(`.${defaultPlaylist.getCurrentSong.getname} .tablePlayButton`);
+    tablePlayButtonSelect.classList.add('hidden'); // select the play button and make it hidden
+}
+
+const updatePausePlay = () => {
+    if(isPlaying){
         songCover.classList.remove('paused')
-        audioPlayer.play();
-        isPlaying = true;
         pauseButton.style.display = 'block';
         playButton.style.display = 'none';
+
+    }else{
+        songCover.classList.add('paused');
+        pauseButton.style.display = 'none';
+        playButton.style.display = 'block';
     }
 }
-const setAudioPlayerInfo = (song) => {
-    songName.textContent = song.name;
-    artist.textContent = song.artist;
-    songCover.style.backgroundImage = `url(${song.cover})`;
-    audioPlayer.src = song.src;
-    volumeBarFill.style.width = `${audioPlayer.volume * 100}%`;
-}
+
+
+
+
+
+
+
+
 
 init();
-

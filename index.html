@@ -9,8 +9,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 
+  <script defer src="components/Playlist.js"></script>
+  <script defer src="components/Song.js"></script>
+  <script defer src="components/data.js"></script>
+  <script defer src="components/newSong.js"></script>
+  <script defer src="components/functions.js"></script>
+  <script defer src="components/songlist_table.js"></script>
   <script defer src="main.js"></script>
 </head>
 <body>
@@ -47,6 +54,10 @@
       <div class="audio-controls">
         <div class="audio-controls-container">
 
+          <button id="btShuffle" class="btn-shuffle">
+            <svg class="w-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.75 9.21"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,6.79A.33.33,0,0,0,13,6.67c.11-.93.11-.93.89-.43.52.33,1,.65,1.56,1s.39.42,0,.67l-1.8,1.15c-.47.29-.61.2-.64-.36l0-.42c-.64,0-1.27.05-1.89,0A6,6,0,0,1,7.24,6.11C6.61,5.42,6,4.7,5.38,4A4.55,4.55,0,0,0,1.59,2.39a7.22,7.22,0,0,1-.93,0A.68.68,0,0,1,0,1.67.7.7,0,0,1,.66.92,6.5,6.5,0,0,1,6.54,3c.58.67,1.15,1.35,1.75,2A4.79,4.79,0,0,0,13,6.79Z"/><path d="M13,2.43a4.88,4.88,0,0,0-4.76,1.8l-1-1.16A5.53,5.53,0,0,1,9.83,1.28,29.54,29.54,0,0,1,13,.76c0-.06,0-.25,0-.43,0-.33.23-.41.47-.26.7.43,1.4.88,2.09,1.33a.28.28,0,0,1,0,.51c-.69.45-1.39.9-2.09,1.32-.25.16-.44.07-.46-.25A4.91,4.91,0,0,1,13,2.43Z"/><path d="M5.61,5l.94,1.12A5.9,5.9,0,0,1,2.36,8.3c-.52,0-1,0-1.56,0a.74.74,0,1,1,0-1.48h1A4.35,4.35,0,0,0,5,5.56Z"/></g></g></svg>
+          </button>
+
           <button id="btPrevious" class="btn-previous">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z" />
@@ -70,9 +81,32 @@
             </svg>
           </button>
 
-        <audio src="assets/audio/bensound-creativeminds.mp3"></audio>
+          <button id="btRepeat" class="btn-repeat">
+            <svg class="w-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.25 27.22"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M21.21,3c0-.73,0-1.43,0-2.12a.81.81,0,0,1,.45-.82c.34-.17.6,0,.86.21l4.3,3.58a.78.78,0,0,1,0,1.36L22.52,8.8c-.41.35-.81.37-1.09,0a1,1,0,0,1-.21-.61c0-.71,0-1.42,0-2.15l-.29,0C17,6,13.05,6,9.12,6a6,6,0,0,0-6.07,6c0,1,0,2,0,3A1.51,1.51,0,0,1,1.23,16.6,1.43,1.43,0,0,1,0,15.28a24.74,24.74,0,0,1,.18-5.09A9,9,0,0,1,8,3.12C9.08,3,10.22,3,11.35,3h9.5Z"/><path d="M6.06,24.2v2.22a.73.73,0,0,1-.42.72A.7.7,0,0,1,4.82,27l-4-3.36-.47-.38a.74.74,0,0,1,0-1.15c1.5-1.27,3-2.52,4.52-3.77a.68.68,0,0,1,.79-.1.73.73,0,0,1,.42.68v2.27h.41c3.85,0,7.71,0,11.56,0a6.09,6.09,0,0,0,6.2-6.25c0-.93,0-1.86,0-2.8a1.5,1.5,0,0,1,1.05-1.47,1.45,1.45,0,0,1,1.66.55,1.57,1.57,0,0,1,.29.82c0,1.36.05,2.72-.06,4.07A8.92,8.92,0,0,1,19.82,24a31.58,31.58,0,0,1-4.24.17c-3.07,0-6.14,0-9.22,0Z"/></g></g></svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
+  <div id="musicListTable">
+    <table class="table" id="musicTable">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Artist</th>
+        <th scope="col">Song Name</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody id="musicList">
+
+      </tbody>
+    </table>
+
+  </div>
+
+  <form action="">
+    <input type="file" id="fileInput">
+  </form>
 </body>
 </html>

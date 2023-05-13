@@ -1,0 +1,29 @@
+[33mcommit 0f06d953ef80a54be64864948185eb831b3d5375[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Fábio <fabiomiguel3.10@gmail.com>
+Date:   Sun May 7 03:09:13 2023 +0100
+
+    still need to finish playlist class and implement it, and finish the songs class. just added the newSongs function which will allow the user to introduce new songs
+
+[33mcommit 52e99079ee960d17fdc0d5299f9030efc80fbb88[m
+Author: Fábio <117021038+fabi0wz@users.noreply.github.com>
+Date:   Sat May 6 19:33:16 2023 +0100
+
+    added shuffle and repeat buttons
+
+[33mcommit 7370867a172f0a299e04cec221f1b5ed5e8dfc2a[m
+Author: Fábio <117021038+fabi0wz@users.noreply.github.com>
+Date:   Sat May 6 18:30:21 2023 +0100
+
+    player is complete
+
+[33mcommit b8ed7a80f41fd690ff0ef376f5d9e528043fb76e[m[33m ([m[1;31morigin/addsongs[m[33m, [m[1;32maddsongs[m[33m)[m
+Author: Fábio <fabiomiguel3.10@gmail.com>
+Date:   Sat May 6 16:38:31 2023 +0100
+
+    updated
+
+[33mcommit 40d3f6088f95bbaf4512f5ffbffd7abbb9436e7b[m
+Author: Fábio <117021038+fabi0wz@users.noreply.github.com>
+Date:   Tue May 2 23:32:12 2023 +0100
+
+    first commit
