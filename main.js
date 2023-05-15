@@ -31,6 +31,7 @@ const init = () => {
     audioPlayer.addEventListener('ended', checkRepeating);
     volumeBar.addEventListener('click', volumeChange);
     volumeBar.addEventListener('wheel', volumeChangewheel);
+    volumeBar.addEventListener('mousedown', volumeChangeDrag);
     musicProgress.addEventListener('click', musicProgressChange);
     musicProgress.addEventListener('mousedown', musicMouseDown);
     muteButton.addEventListener('click', mute);

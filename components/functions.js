@@ -92,9 +92,18 @@ const musicMouseDown = () => {
     });
 }
 
+
+
 const volumeChange = (e) => {
     audioPlayer.volume = e.offsetX / volumeBar.offsetWidth;
     updatePlayer();
+}
+
+const volumeChangeDrag = () => {
+    volumeBar.addEventListener('mousemove', volumeChange);
+    volumeBar.addEventListener('mouseup', () => {
+        volumeBar.removeEventListener('mousemove', volumeChange);
+    });
 }
 
 const mute = () =>{
