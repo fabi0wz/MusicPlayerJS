@@ -85,6 +85,13 @@ const musicProgressChange = (e) => {
     updatePlayer();
 }
 
+const musicMouseDown = () => {
+    musicProgress.addEventListener('mousemove', musicProgressChange);
+    musicProgress.addEventListener('mouseup', () => {
+        musicProgress.removeEventListener('mousemove', musicProgressChange);
+    });
+}
+
 const volumeChange = (e) => {
     audioPlayer.volume = e.offsetX / volumeBar.offsetWidth;
     updatePlayer();

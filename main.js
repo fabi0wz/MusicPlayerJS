@@ -32,6 +32,7 @@ const init = () => {
     volumeBar.addEventListener('click', volumeChange);
     volumeBar.addEventListener('wheel', volumeChangewheel);
     musicProgress.addEventListener('click', musicProgressChange);
+    musicProgress.addEventListener('mousedown', musicMouseDown);
     muteButton.addEventListener('click', mute);
     unmuteButton.addEventListener('click', mute);
     playButton.addEventListener('click', playPause);
@@ -50,7 +51,6 @@ const init = () => {
             tablePauseButton(index);
         });
     });
-    // descomentar quando for fazer o botao de pause funcionar
 }
 
 const shuffleBtnBg = (s) => {
