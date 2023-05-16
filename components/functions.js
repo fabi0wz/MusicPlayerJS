@@ -2,29 +2,29 @@ let isPlaying = false;
 let isRepeating = false;
 let isShuffling = false;
 
-const playPause = () => {
+const playPause = () => { //play/pause button
     isPlaying = !isPlaying;
     isPlaying ? playStart() : pause();
 
 }
-const playCheck = () => {
+const playCheck = () => { //check if the song is playing or not and act accordingly
     isPlaying ? playStart() : pause();
 }
-const playStart = () => {
+const playStart = () => { //start / play button
     isPlaying = true;
     audioPlayer.play();
     updatePausePlay();
     playTable();
 }
 
-const pause = () => {
+const pause = () => { // pause button
     audioPlayer.pause();
     updatePausePlay();
     pauseTable();
 }
 
-let shuffleFlag = false;
-const nextSong = () => {
+let shuffleFlag = false; //flag for saving previous song (make the shuffle return to previous song and then each song --)
+const nextSong = () => { // next song function, song index++ or shuffle with math rand
     if(isShuffling){
         shuffleFlag = true;
         defaultPlaylist.setPreviousSong = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong);
@@ -35,7 +35,7 @@ const nextSong = () => {
     }
     else {
 
-        try {
+        try { //if next song is not available, go to the first song
             defaultPlaylist.setCurrentSongIndex = defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong) + 1;
         }
         catch (Error) {
@@ -55,39 +55,39 @@ const prevSong = () => { // on button press
         try {
             defaultPlaylist.setCurrentSongIndex = (defaultPlaylist.getPlaylist.indexOf(defaultPlaylist.getCurrentSong)) - 1; // currentsong--
         } catch (Error) {
-            // If an error is thrown, log it and set the current song to 0
+            // If an error is thrown, set the current song to 0
             defaultPlaylist.setCurrentSongIndex = (defaultPlaylist.getPlaylist.length) - 1;
         }
     }
     setAudioPlayerInfo(defaultPlaylist.getCurrentSong); // changes audio player info
 }
 
-const shuffleSong = () => { // on button press
+const shuffleSong = () => { // on button press (toggle)
     shuffleFlag = !shuffleFlag; // changes shuffle status
     isShuffling = !isShuffling; // changes shuffle status
     shuffleBtnBg(isShuffling); // changes bg fill
 }
 
 
-const repeatSong = () => {
-    isRepeating = !isRepeating;
-    repeatBtnBg(isRepeating);
+const repeatSong = () => { // on button press (toggle)
+    isRepeating = !isRepeating; // changes repeat status
+    repeatBtnBg(isRepeating); // changes bg fill
 }
 
-const checkRepeating = () =>{
-    isRepeating ? audioPlayer.currentTime = 0 : nextSong();
-    playCheck();
+const checkRepeating = () =>{ // checks if repeat is on and acts accordingly
+    isRepeating ? audioPlayer.currentTime = 0 : nextSong(); // if repeat is on, restart song, else, go to next song
+    playCheck(); // check if the song is playing or not and act accordingly
 }
 
-const musicProgressChange = (e) => {
-    const progress = e.offsetX / musicProgress.offsetWidth;
-    audioPlayer.currentTime = progress * audioPlayer.duration;
-    updatePlayer();
+const musicProgressChange = (e) => { // changes song progress on click
+    const progress = e.offsetX / musicProgress.offsetWidth; // get the progress in %
+    audioPlayer.currentTime = progress * audioPlayer.duration; // set the current time to the progress
+    updatePlayer(); // update the player
 }
 
 const musicMouseDown = () => {
     musicProgress.addEventListener('mousemove', musicProgressChange);
-    musicProgress.addEventListener('mouseup', () => {
+    document.addEventListener('mouseup', () => {
         musicProgress.removeEventListener('mousemove', musicProgressChange);
     });
 }
@@ -148,6 +148,13 @@ const tablePauseButton = () => {
     pauseTable();
 }
 
+
+const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time % 60);
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${minutes}:${seconds}`;
+}
 
 //Dados
 

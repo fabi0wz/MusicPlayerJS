@@ -12,6 +12,9 @@ const volumeBarFill = volumeBar.querySelector('#soundVolumeLevel');
 // music controls
 const musicProgress = document.querySelector('#trackProgressContainer');
 const musicProgressFill = musicProgress.querySelector('#trackProgressBar');
+const currentTimeplayer = document.querySelector('#currentTime');
+const totalTime = document.querySelector('#totalTime');
+
 
 //music buttons
 const playButton = document.querySelector('#btPlay');
@@ -52,6 +55,10 @@ const init = () => {
             tablePauseButton(index);
         });
     });
+    audioPlayer.addEventListener('loadedmetadata', function() { //only way i found to make the .duration not return a NaN
+        musicTimes();
+        setInterval(musicTimes, 1000);
+      });
 }
 
 const shuffleBtnBg = (s) => {
@@ -84,7 +91,6 @@ const setAudioPlayerInfo = (song) => {
 }
 
 const renderTable = (song) => {
-
     const childElements = document.querySelectorAll('tr');
     childElements.forEach((child) => {
         child.classList.remove('tableActive');
@@ -145,12 +151,9 @@ const updatePausePlay = () => {
     }
 }
 
+const musicTimes = () => {
+    currentTime.textContent = formatTime(audioPlayer.currentTime);
+    totalTime.textContent = formatTime(audioPlayer.duration);
+  }
 
-
-
-
-
-
-
-
-init();
+init ();
